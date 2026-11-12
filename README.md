@@ -30,7 +30,17 @@ output for releases. Versions live in `Cargo.toml` and `Cargo.lock` instead of `
 ## Install
 
 ```sh
-cargo install ccr-lint --locked
+cargo binstall ccr-lint          # prebuilt binary (Linux, macOS, Windows), see cargo-binstall
+cargo install ccr-lint --locked  # or build from source
+```
+
+Prebuilt archives are also attached to each [GitHub Release](https://github.com/Forsrobin/ccr-lint/releases).
+In GitHub Actions, `taiki-e/install-action` installs them in seconds:
+
+```yaml
+- uses: taiki-e/install-action@v2
+  with:
+    tool: ccr-lint
 ```
 
 ## Quick start
@@ -48,7 +58,9 @@ cargo install ccr-lint --locked
          - uses: actions/checkout@v4
            with:
              fetch-depth: 0
-         - run: cargo install ccr-lint --locked
+         - uses: taiki-e/install-action@v2
+           with:
+             tool: ccr-lint
          - run: ccr-lint lint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
    ```
 
