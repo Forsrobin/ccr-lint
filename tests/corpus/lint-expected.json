@@ -1,0 +1,617 @@
+[
+ {
+  "message": "feat: add thing",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat(api): add thing",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat(api)!: drop thing",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "fix!: x",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "Feat: Upper type",
+  "stdout": "⧗   --- input ---\nFeat: Upper type\n✖   subject must not be sentence-case [subject-case]\n✖   type must be lower-case [type-case]\n✖   type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test] [type-enum]\n\n✖   found 3 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "FEAT: shout",
+  "stdout": "⧗   --- input ---\nFEAT: shout\n✖   type must be lower-case [type-case]\n✖   type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test] [type-enum]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: Add capital subject",
+  "stdout": "⧗   --- input ---\nfeat: Add capital subject\n✖   subject must not be sentence-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: ADD SHOUT",
+  "stdout": "⧗   --- input ---\nfeat: ADD SHOUT\n✖   subject must not be sentence-case, start-case, upper-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: Add Every Word",
+  "stdout": "⧗   --- input ---\nfeat: Add Every Word\n✖   subject must not be sentence-case, start-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: add.",
+  "stdout": "⧗   --- input ---\nfeat: add.\n✖   subject may not end with full stop [subject-full-stop]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: add...",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: ends with colon:",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat:",
+  "stdout": "⧗   --- input ---\nfeat:\n✖   subject may not be empty [subject-empty]\n✖   type may not be empty [type-empty]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: ",
+  "stdout": "⧗   --- input ---\nfeat: \n✖   header must not end with whitespace [header-trim]\n✖   subject may not be empty [subject-empty]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat:  double space",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": " feat: leading space",
+  "stdout": "⧗   --- input ---\n feat: leading space\n✖   header must not start with whitespace [header-trim]\n✖   subject may not be empty [subject-empty]\n✖   type may not be empty [type-empty]\n\n✖   found 3 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: trailing space ",
+  "stdout": "⧗   --- input ---\nfeat: trailing space \n✖   header must not end with whitespace [header-trim]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "  feat: both  ",
+  "stdout": "⧗   --- input ---\n  feat: both  \n✖   header must not be surrounded by whitespace [header-trim]\n✖   subject may not be empty [subject-empty]\n✖   type may not be empty [type-empty]\n\n✖   found 3 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "unknown: type",
+  "stdout": "⧗   --- input ---\nunknown: type\n✖   type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test] [type-enum]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "featx: typo",
+  "stdout": "⧗   --- input ---\nfeatx: typo\n✖   type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test] [type-enum]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": ": no type",
+  "stdout": "⧗   --- input ---\n: no type\n✖   type may not be empty [type-empty]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "no colon at all",
+  "stdout": "⧗   --- input ---\nno colon at all\n✖   subject may not be empty [subject-empty]\n✖   type may not be empty [type-empty]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat(scope) missing colon",
+  "stdout": "⧗   --- input ---\nfeat(scope) missing colon\n✖   subject may not be empty [subject-empty]\n✖   type may not be empty [type-empty]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat(): empty scope",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat(a,b): multi",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat(a/b): slash",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "stdout": "⧗   --- input ---\nfeat: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n✖   header must not be longer than 100 characters, current length is 101 [header-max-length]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: éééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééééé",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: 😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\nbody without blank",
+  "stdout": "⧗   --- input ---\nfeat: x\n\nbody without blank\n⚠   body must have leading blank line [body-leading-blank]\n\n⚠   found 0 problems, 1 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\nbody",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\n\n\nbody after many blanks",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\nyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+  "stdout": "⧗   --- input ---\nfeat: x\n\nyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy\n✖   body's lines must not be longer than 100 characters [body-max-line-length]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: x\n\nyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\nsee https://example.com/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\nbody\nCloses #12",
+  "stdout": "⧗   --- input ---\nfeat: x\n\nbody\n\nCloses #12\n⚠   footer must have leading blank line [footer-leading-blank]\n\n⚠   found 0 problems, 1 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\nbody\n\nCloses #12",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\nbody\n\nRefs: #3\nSigned-off-by: A <a@b.c>",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\nBREAKING CHANGE: big",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\nBREAKING CHANGE: no blank",
+  "stdout": "⧗   --- input ---\nfeat: x\n\nBREAKING CHANGE: no blank\n⚠   footer must have leading blank line [footer-leading-blank]\n\n⚠   found 0 problems, 1 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\nBREAKING-CHANGE: dash",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\nbody\n\nBREAKING CHANGE: big\nmore text\nReviewed-by: Z",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "Merge branch 'main' into feature",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "Merge pull request #1 from x/y",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "Merge tag 'v1.0.0'",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "Revert \"feat: x\"\n\nThis reverts commit abcdef1234567.",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "revert: feat: x\n\nThis reverts commit abc.",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "fixup! feat: x",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "squash! fix: y",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "amend! z",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "chore(release): 1.2.3",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "chore: 1.2.3 [skip ci]",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "1.2.3",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "v1.2.3",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "Merged PR 12: thing",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "Merge remote-tracking branch 'origin/main'",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "Automatic merge from x",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "Auto-merged a into b",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "Reapply \"x\"",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\nMerge branch 'y' into z",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "WIP",
+  "stdout": "⧗   --- input ---\nWIP\n✖   subject may not be empty [subject-empty]\n✖   type may not be empty [type-empty]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "wip: thing",
+  "stdout": "⧗   --- input ---\nwip: thing\n✖   type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test] [type-enum]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: `Code` start",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: \"Quoted\" start",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: 'Single' quoted",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: 123 numbers",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: émile accent",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: Émile accent",
+  "stdout": "⧗   --- input ---\nfeat: Émile accent\n✖   subject must not be sentence-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: ÅÄÖ",
+  "stdout": "⧗   --- input ---\nfeat: ÅÄÖ\n✖   subject must not be sentence-case, upper-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: ßtraße",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: iOS support",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: McDonald",
+  "stdout": "⧗   --- input ---\nfeat: McDonald\n✖   subject must not be sentence-case, pascal-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: HTTPRequest",
+  "stdout": "⧗   --- input ---\nfeat: HTTPRequest\n✖   subject must not be sentence-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: camelCase start",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: PascalCase",
+  "stdout": "⧗   --- input ---\nfeat: PascalCase\n✖   subject must not be sentence-case, pascal-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: snake_case word",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: kebab-case word",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: a",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: A",
+  "stdout": "⧗   --- input ---\nfeat: A\n✖   subject must not be sentence-case, start-case, pascal-case, upper-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: Привет мир",
+  "stdout": "⧗   --- input ---\nfeat: Привет мир\n✖   subject must not be sentence-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: привет",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: 日本語",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: über",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: Über alles",
+  "stdout": "⧗   --- input ---\nfeat: Über alles\n✖   subject must not be sentence-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: x\n\n# a comment line\nbody",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "# only comment",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n# comment\n# ------------------------ >8 ------------------------\nignored diff",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\nwindows body\n",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\ngpg: signature line\nbody",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "fix(scope): handle 1st 2nd case",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "fix: Handle 1ST case",
+  "stdout": "⧗   --- input ---\nfix: Handle 1ST case\n✖   subject must not be sentence-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "docs: README update",
+  "stdout": "⧗   --- input ---\ndocs: README update\n✖   subject must not be sentence-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "chore: Bump deps",
+  "stdout": "⧗   --- input ---\nchore: Bump deps\n✖   subject must not be sentence-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "style: x\n\n\n",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x\n\n-hash-\nabc",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat(scope with space): x",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat(*): star",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "Feat(API): mixed",
+  "stdout": "⧗   --- input ---\nFeat(API): mixed\n✖   type must be lower-case [type-case]\n✖   type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test] [type-enum]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat!: x\n\nBREAKING CHANGE: y",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "perf: x\n\nfixes #1, fixes #2 and resolves org/repo#3",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "test: x\n\nbody line\n\nfooter-token: value\nanother: thing\n\nback to body?",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "build: x\n\n\nbody\n\n\nToken: v\n",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "ci: tabs\tin\tsubject",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: x y",
+  "stdout": "⧗   --- input ---\nfeat: x y\n✖   subject may not be empty [subject-empty]\n✖   type may not be empty [type-empty]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "refactor: x\n\nz z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z ",
+  "stdout": "⧗   --- input ---\nrefactor: x\n\nz z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z z \n✖   body's lines must not be longer than 100 characters [body-max-line-length]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat:  nbsp",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat:\tx",
+  "stdout": "⧗   --- input ---\nfeat:\tx\n✖   subject may not be empty [subject-empty]\n✖   type may not be empty [type-empty]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat (scope): space before paren",
+  "stdout": "⧗   --- input ---\nfeat (scope): space before paren\n✖   subject may not be empty [subject-empty]\n✖   type may not be empty [type-empty]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat(scope):no space",
+  "stdout": "⧗   --- input ---\nfeat(scope):no space\n✖   subject may not be empty [subject-empty]\n✖   type may not be empty [type-empty]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "FIX: upper",
+  "stdout": "⧗   --- input ---\nFIX: upper\n✖   type must be lower-case [type-case]\n✖   type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test] [type-enum]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "Fix: title",
+  "stdout": "⧗   --- input ---\nFix: title\n✖   type must be lower-case [type-case]\n✖   type must be one of [build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test] [type-enum]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "fix: Fix it",
+  "stdout": "⧗   --- input ---\nfix: Fix it\n✖   subject must not be sentence-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: x\n\nhttps://example.com\nqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq",
+  "stdout": "⧗   --- input ---\nfeat: x\n\nhttps://example.com\nqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq\n✖   body's lines must not be longer than 100 characters [body-max-line-length]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: x\n\nBody\n\nCo-authored-by: someone",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: subject with trailing period.\n\nBody.",
+  "stdout": "⧗   --- input ---\nfeat: subject with trailing period.\n\nBody.\n✖   subject may not end with full stop [subject-full-stop]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: e.g. something",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "feat: Version 2",
+  "stdout": "⧗   --- input ---\nfeat: Version 2\n✖   subject must not be sentence-case, start-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "feat: v2 support",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "chore(deps): bump serde from 1.0.1 to 1.0.2",
+  "stdout": "",
+  "exit": 0
+ },
+ {
+  "message": "chore(deps-dev): Bump x",
+  "stdout": "⧗   --- input ---\nchore(deps-dev): Bump x\n✖   subject must not be sentence-case [subject-case]\n\n✖   found 1 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "Initial commit",
+  "stdout": "⧗   --- input ---\nInitial commit\n✖   subject may not be empty [subject-empty]\n✖   type may not be empty [type-empty]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ },
+ {
+  "message": "initial commit",
+  "stdout": "⧗   --- input ---\ninitial commit\n✖   subject may not be empty [subject-empty]\n✖   type may not be empty [type-empty]\n\n✖   found 2 problems, 0 warnings\nⓘ   Get help: https://github.com/conventional-changelog/commitlint/#what-is-commitlint\n\n",
+  "exit": 1
+ }
+]
