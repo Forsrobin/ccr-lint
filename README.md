@@ -26,10 +26,8 @@ output for releases. Versions live in `Cargo.toml` and `Cargo.lock` instead of `
 ## Install
 
 ```sh
-cargo install --git https://github.com/Forsrobin/ccr-lint
+cargo install ccr-lint --locked
 ```
-
-(`cargo install ccr-lint` once it is published on crates.io.)
 
 ## Quick start
 
@@ -46,7 +44,7 @@ cargo install --git https://github.com/Forsrobin/ccr-lint
          - uses: actions/checkout@v4
            with:
              fetch-depth: 0
-         - run: cargo install --git https://github.com/Forsrobin/ccr-lint --locked
+         - run: cargo install ccr-lint --locked
          - run: ccr-lint lint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
    ```
 
