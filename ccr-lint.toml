@@ -1,0 +1,5 @@
+# ccr-lint's own release settings (see README "Configuration"). Everything else uses the defaults.
+
+[release.scripts]
+# Releases are cut only by .github/workflows/release.yml; `ccr-lint release --dry-run` still works locally.
+prerelease = 'test "$GITHUB_ACTIONS" = true || { echo "Versions are bumped only by the release workflow." >&2; exit 1; }'
