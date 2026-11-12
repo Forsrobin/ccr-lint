@@ -1,6 +1,18 @@
-# ccr-lint
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Forsrobin/ccr-lint/main/assets/logo_black_background.png">
+    <img alt="ccr-lint: Conventional Commits, Rust" src="https://raw.githubusercontent.com/Forsrobin/ccr-lint/main/assets/logo_transparent.png" width="480">
+  </picture>
+</p>
 
-Conventional Commits linting and releases for Rust projects, without Node.
+<p align="center">
+  Conventional Commits linting and releases for Rust projects, without Node.
+</p>
+
+<p align="center">
+  <a href="#license"><img alt="License: MIT OR Apache-2.0" src="https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue"></a>
+  <img alt="Rust 1.88+" src="https://img.shields.io/badge/rust-1.88%2B-orange">
+</p>
 
 `ccr-lint` is a faithful port of two Node tools, so a Rust repository can drop `package.json` and
 `node_modules` and keep exactly the same behavior:
@@ -17,8 +29,31 @@ output for releases. Versions live in `Cargo.toml` and `Cargo.lock` instead of `
 ## Install
 
 ```sh
-cargo install ccr-lint
+cargo install --git https://github.com/Forsrobin/ccr-lint
 ```
+
+(`cargo install ccr-lint` once it is published on crates.io.)
+
+## Quick start
+
+1. Lint each commit message locally with a `commit-msg` hook (see [Linting commit messages](#linting-commit-messages)).
+2. Lint pull requests in CI:
+
+   ```yaml
+   # .github/workflows/commits.yml
+   on: pull_request
+   jobs:
+     commitlint:
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v4
+           with:
+             fetch-depth: 0
+         - run: cargo install --git https://github.com/Forsrobin/ccr-lint --locked
+         - run: ccr-lint lint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+   ```
+
+3. Cut releases with `ccr-lint release` (locally with `--dry-run` to preview, or from a release workflow).
 
 ## Linting commit messages
 

@@ -2,7 +2,7 @@
 name = "ccr-lint"
 version = "0.1.0"
 edition = "2024"
-rust-version = "1.85"
+rust-version = "1.88"
 description = "Conventional Commits linting and releases for Rust projects, without Node: a faithful port of commitlint (config-conventional) and commit-and-tag-version (conventionalcommits preset)."
 license = "MIT OR Apache-2.0"
 readme = "README.md"
