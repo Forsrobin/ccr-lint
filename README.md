@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Forsrobin/ccr-lint/main/assets/logo_black_background.png">
-    <img alt="ccr-lint: Conventional Commits, Rust" src="https://raw.githubusercontent.com/Forsrobin/ccr-lint/main/assets/logo_transparent.png" width="480">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo_black_background.png">
+    <img alt="ccr-lint: Conventional Commits, Rust" src="assets/logo_transparent.png" width="480">
   </picture>
 </p>
 
