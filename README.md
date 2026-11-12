@@ -171,6 +171,17 @@ Overridden rules keep their position; new rules run after the default ones, as w
 commit-and-tag-version, the stdout of `prebump` can set the version and that of `precommit` the commit
 message).
 
+## Contributing
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org) and are linted by ccr-lint
+itself: in pull requests by CI, and locally by a `commit-msg` hook. Enable the hook once per clone:
+
+```sh
+git config core.hooksPath .githooks
+```
+
+Releases are cut only by the Release workflow (Actions → Release → Run workflow).
+
 ## How parity is checked
 
 The port follows the JavaScript sources line by line, including their JavaScript semantics (UTF-16
