@@ -1,5 +1,9 @@
 <p align="center">
-  <img alt="ccr-lint: Conventional Commits, Rust" src="assets/logo_transparent.png" width="480">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo_black_background.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/logo_white.png">
+    <img alt="ccr-lint: Conventional Commits, Rust" src="assets/logo_white.png" width="480">
+  </picture>
 </p>
 
 <p align="center">
