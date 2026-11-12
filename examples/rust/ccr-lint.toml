@@ -1,0 +1,9 @@
+# Optional: without this file ccr-lint uses the commitlint / commit-and-tag-version defaults.
+# The same keys also work in [package.metadata.ccr-lint] or [workspace.metadata.ccr-lint] of Cargo.toml.
+
+[lint.rules]
+header-max-length = [2, "always", 72]
+
+[release.scripts]
+# Versions are bumped only by the release workflow; `ccr-lint release --dry-run` still works locally.
+prerelease = 'test "$GITHUB_ACTIONS" = true || { echo "Run the Release workflow instead." >&2; exit 1; }'

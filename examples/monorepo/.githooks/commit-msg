@@ -1,0 +1,7 @@
+#!/bin/sh
+# Lint each commit message with the root ccr-lint.toml. `npm install` enables this hook ("prepare").
+if ! command -v ccr-lint >/dev/null 2>&1; then
+  echo "commit-msg: ccr-lint is not installed, skipping (https://github.com/Forsrobin/ccr-lint/releases)" >&2
+  exit 0
+fi
+exec ccr-lint lint --edit "$1"

@@ -171,6 +171,17 @@ Overridden rules keep their position; new rules run after the default ones, as w
 commit-and-tag-version, the stdout of `prebump` can set the version and that of `precommit` the commit
 message).
 
+## Examples
+
+[`examples/`](examples) has ready-to-copy setups, each with a commit-linting workflow and a release
+workflow that bumps the version, builds the artifacts, pushes to `main` and creates the GitHub Release:
+
+- [`rust`](examples/rust): a crate or Cargo workspace.
+- [`monorepo`](examples/monorepo): a Rust crate in `packages/engine` of a Node monorepo, released on
+  its own with an `engine-v` tag prefix, a scoped changelog and a `--config` override.
+- [`node`](examples/node): a project with only a `package.json`. Lifecycle scripts bump `package.json`
+  and `package-lock.json`, replacing commitlint, husky and commit-and-tag-version.
+
 ## Contributing
 
 Commits follow [Conventional Commits](https://www.conventionalcommits.org) and are linted by ccr-lint

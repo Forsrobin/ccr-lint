@@ -1,0 +1,25 @@
+# Lints the message of every commit in a pull request.
+name: Commits
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the whole range, not only the merge commit
+
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: ccr-lint
+
+      - run: >
+          ccr-lint lint --verbose
+          --from ${{ github.event.pull_request.base.sha }}
+          --to ${{ github.event.pull_request.head.sha }}

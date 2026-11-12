@@ -1,0 +1,23 @@
+# Release settings for packages/engine. Used as `ccr-lint release --config ccr-lint.toml`, run from this
+# folder: Cargo.toml, Cargo.lock and CHANGELOG.md are the ones next to this file.
+
+[release]
+# Tags are repository-wide, so each package gets its own prefix: engine-v0.4.3, web-v2.1.0, ...
+tag-prefix = "engine-v"
+release-commit-message-format = "chore(release): engine {{currentTag}}"
+
+# ccr-lint reads every commit since the last engine-v tag, in the whole repository. With a scope on each
+# type, the changelog lists only `feat(engine): ...`, `fix(engine): ...` and `perf(engine): ...`;
+# commits for other packages are left out. A breaking change (`feat(web)!: ...`) is still listed,
+# whatever its scope, under BREAKING CHANGES and a section named after its type.
+types = [
+  { type = "feat", scope = "engine", section = "Features" },
+  { type = "fix", scope = "engine", section = "Bug Fixes" },
+  { type = "perf", scope = "engine", section = "Performance" },
+  { type = "revert", scope = "engine", section = "Reverts" },
+]
+
+[release.scripts]
+# The version bump also counts commits of other packages (a feat(web) bumps the minor version), so stop
+# when nothing in this folder changed since the last engine release.
+prerelease = 'last=$(git describe --tags --abbrev=0 --match "engine-v*" 2>/dev/null) || exit 0; git diff --quiet "$last" HEAD -- . || exit 0; echo "packages/engine has no changes since $last" >&2; exit 1'

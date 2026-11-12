@@ -1,0 +1,116 @@
+# Release a Node project with ccr-lint (replaces commit-and-tag-version / standard-version):
+#   1. ccr-lint release: write CHANGELOG.md, bump package.json and package-lock.json (lifecycle scripts
+#      in ccr-lint.toml), commit and tag (local only)
+#   2. read the new version
+#   3. build, pack and upload the artifact
+#   4. push the release commit and tag to main
+#   5. create the GitHub Release with the changelog section and the package tarball
+#
+# Run it from Actions -> Release -> Run workflow.
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-as:
+        description: "major, minor, patch or an exact version (empty: derive it from the commits)"
+        required: false
+        default: ""
+      dry-run:
+        description: "Only print the next version and changelog"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0 # full history and tags: the newest v-tag is the current version
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: ccr-lint
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version, write changelog, commit and tag
+        env:
+          RELEASE_AS: ${{ inputs.release-as }}
+          DRY_RUN: ${{ inputs.dry-run }}
+        run: |
+          args=()
+          if [ -n "$RELEASE_AS" ]; then args+=(--release-as "$RELEASE_AS"); fi
+          if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          ccr-lint release "${args[@]}"
+
+      - name: Read the new version
+        id: version
+        if: ${{ !inputs.dry-run }}
+        run: |
+          tag=$(git describe --tags --exact-match --match 'v*' HEAD)
+          version=$(node -p 'require("./package.json").version')
+          test "$tag" = "v$version" || { echo "tag $tag does not match package.json $version" >&2; exit 1; }
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Test and build
+        if: ${{ !inputs.dry-run }}
+        run: |
+          npm test
+          npm run build
+
+      - name: Pack
+        if: ${{ !inputs.dry-run }}
+        run: |
+          mkdir -p dist
+          npm pack --pack-destination dist
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !inputs.dry-run }}
+        with:
+          name: my-app-${{ steps.version.outputs.tag }}
+          path: dist/*.tgz
+
+      - name: Push the release commit and tag to main
+        if: ${{ !inputs.dry-run }}
+        run: git push --follow-tags origin HEAD:main
+
+      - name: Create the GitHub Release
+        if: ${{ !inputs.dry-run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          awk '/^## /{n++; if (n == 1) next} n == 1' CHANGELOG.md > notes.md
+          gh release create "$TAG" dist/*.tgz --title "$TAG" --notes-file notes.md --verify-tag
+          echo "Released $TAG :rocket:" >> "$GITHUB_STEP_SUMMARY"
+
+      # For a public package (remove "private": true from package.json and add an NPM_TOKEN secret):
+      # - uses: actions/setup-node@v4
+      #   if: ${{ !inputs.dry-run }}
+      #   with:
+      #     registry-url: https://registry.npmjs.org
+      # - if: ${{ !inputs.dry-run }}
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      #   run: npm publish dist/*.tgz --provenance --access public

@@ -1,0 +1,117 @@
+# Release a Rust project:
+#   1. ccr-lint release: bump Cargo.toml / Cargo.lock, write CHANGELOG.md, commit and tag (local only)
+#   2. read the new version from the tag
+#   3. build the binaries and upload them as workflow artifacts
+#   4. push the release commit and tag to main
+#   5. create the GitHub Release with the changelog section and the binaries
+#
+# Run it from Actions -> Release -> Run workflow.
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-as:
+        description: "major, minor, patch or an exact version (empty: derive it from the commits)"
+        required: false
+        default: ""
+      dry-run:
+        description: "Only print the next version and changelog"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0 # full history and tags, to find the last release
+
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: ccr-lint
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version, write changelog, commit and tag
+        env:
+          RELEASE_AS: ${{ inputs.release-as }}
+          DRY_RUN: ${{ inputs.dry-run }}
+        run: |
+          args=()
+          if [ -n "$RELEASE_AS" ]; then args+=(--release-as "$RELEASE_AS"); fi
+          if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          ccr-lint release "${args[@]}"
+
+      - name: Read the new version
+        id: version
+        if: ${{ !inputs.dry-run }}
+        run: |
+          tag=$(git describe --tags --exact-match --match 'v*' HEAD)
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=${tag#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Test
+        if: ${{ !inputs.dry-run }}
+        run: cargo test --locked
+
+      - name: Build
+        if: ${{ !inputs.dry-run }}
+        run: cargo build --release --locked
+
+      - name: Package
+        if: ${{ !inputs.dry-run }}
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+          BIN: my-app # the [[bin]] name
+        run: |
+          name="$BIN-$TAG-x86_64-unknown-linux-gnu"
+          mkdir -p "dist/$name"
+          cp "target/release/$BIN" README.md "dist/$name/"
+          tar -czf "dist/$name.tar.gz" -C dist "$name"
+          (cd dist && sha256sum "$name.tar.gz" > "$name.tar.gz.sha256")
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !inputs.dry-run }}
+        with:
+          name: my-app-${{ steps.version.outputs.tag }}
+          path: dist/*.tar.gz*
+
+      - name: Push the release commit and tag to main
+        if: ${{ !inputs.dry-run }}
+        run: git push --follow-tags origin HEAD:main
+
+      - name: Create the GitHub Release
+        if: ${{ !inputs.dry-run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          # The newest section of CHANGELOG.md, without its heading.
+          awk '/^## /{n++; if (n == 1) next} n == 1' CHANGELOG.md > notes.md
+          gh release create "$TAG" dist/*.tar.gz* --title "$TAG" --notes-file notes.md --verify-tag
+          echo "Released $TAG :rocket:" >> "$GITHUB_STEP_SUMMARY"
+
+      # - name: Publish to crates.io
+      #   if: ${{ !inputs.dry-run }}
+      #   env:
+      #     CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+      #   run: cargo publish --locked

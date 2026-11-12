@@ -1,0 +1,26 @@
+# Lints the message of every commit in a pull request. Replaces commitlint + @commitlint/config-conventional.
+name: Commits
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # A prebuilt binary from the ccr-lint GitHub Releases; no Rust toolchain needed.
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: ccr-lint
+
+      - run: >
+          ccr-lint lint --verbose
+          --from ${{ github.event.pull_request.base.sha }}
+          --to ${{ github.event.pull_request.head.sha }}

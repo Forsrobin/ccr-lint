@@ -1,0 +1,3 @@
+#!/bin/sh
+# Lint each commit message. Enable once per clone:  git config core.hooksPath .githooks
+exec ccr-lint lint --edit "$1"

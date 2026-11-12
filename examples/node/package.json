@@ -1,0 +1,11 @@
+{
+  "name": "my-app",
+  "version": "1.4.0",
+  "private": true,
+  "repository": "github:acme/my-app",
+  "scripts": {
+    "prepare": "git config core.hooksPath .githooks || true",
+    "build": "echo \"your build here\"",
+    "test": "node --test"
+  }
+}

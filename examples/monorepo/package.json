@@ -1,0 +1,9 @@
+{
+  "name": "acme",
+  "private": true,
+  "repository": "github:acme/acme",
+  "workspaces": ["packages/web"],
+  "scripts": {
+    "prepare": "git config core.hooksPath .githooks || true"
+  }
+}

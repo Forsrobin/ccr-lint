@@ -1,0 +1,8 @@
+# Repository-wide settings, used by `ccr-lint lint` (the commit-msg hook and the Commits workflow).
+# ccr-lint reads ccr-lint.toml from the repository root; each package's release passes its own file with
+# --config instead (packages/engine/ccr-lint.toml).
+
+[lint.rules]
+# Every commit names the package it changes, so each package's changelog can pick its own commits.
+scope-enum = [2, "always", ["engine", "web", "repo", "deps", "release"]]
+scope-empty = [2, "never"]

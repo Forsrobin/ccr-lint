@@ -1,0 +1,28 @@
+# ccr-lint in a project with only a package.json.
+#
+# ccr-lint bumps only Cargo files. Without a Cargo.toml it takes the current version from the newest
+# `v` tag instead, and writes CHANGELOG.md, commits and tags as usual. These lifecycle scripts add
+# package.json and package-lock.json to that release:
+#
+#   postchangelog  copy the new version from CHANGELOG.md into package.json and package-lock.json
+#   postcommit     amend them into the `chore(release): X.Y.Z` commit, before it is tagged
+#
+# Lifecycle scripts do not run with --dry-run, so a dry run changes nothing.
+
+[release.scripts]
+prerelease = 'test "$GITHUB_ACTIONS" = true || { echo "Run the Release workflow instead." >&2; exit 1; }'
+postchangelog = "sh scripts/sync-package-version.sh"
+postcommit = "git commit --amend --no-edit --no-verify package.json package-lock.json"
+
+# Anything from the root README's "Configuration" section works here too, for example:
+#
+# [lint.rules]
+# scope-enum = [2, "always", ["api", "ui", "deps"]]
+#
+# [release]
+# types = [
+#   { type = "feat", section = "Features" },
+#   { type = "fix", section = "Bug Fixes" },
+#   { type = "perf", section = "Performance" },
+#   { type = "docs", section = "Documentation" },
+# ]

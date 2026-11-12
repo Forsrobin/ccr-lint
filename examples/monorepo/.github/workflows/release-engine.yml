@@ -1,0 +1,111 @@
+# Release packages/engine (a Rust crate inside a Node monorepo):
+#   1. ccr-lint release, run in packages/engine with its own config: bump its Cargo.toml / Cargo.lock,
+#      write packages/engine/CHANGELOG.md, commit `chore(release): engine X.Y.Z`, tag engine-vX.Y.Z
+#   2. read the new version from the tag
+#   3. build the binary and upload it as a workflow artifact
+#   4. push the release commit and tag to main
+#   5. create the GitHub Release engine-vX.Y.Z with the changelog section and the binary
+#
+# Run it from Actions -> Release engine -> Run workflow. Copy it per package (release-web.yml, ...).
+name: Release engine
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-as:
+        description: "major, minor, patch or an exact version (empty: derive it from the commits)"
+        required: false
+        default: ""
+      dry-run:
+        description: "Only print the next version and changelog"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release # one release at a time across all packages: they all push to main
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/engine
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: packages/engine
+
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: ccr-lint
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Bump version, write changelog, commit and tag
+        env:
+          RELEASE_AS: ${{ inputs.release-as }}
+          DRY_RUN: ${{ inputs.dry-run }}
+        run: |
+          args=(--config ccr-lint.toml)
+          if [ -n "$RELEASE_AS" ]; then args+=(--release-as "$RELEASE_AS"); fi
+          if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          ccr-lint release "${args[@]}"
+
+      - name: Read the new version
+        id: version
+        if: ${{ !inputs.dry-run }}
+        run: |
+          tag=$(git describe --tags --exact-match --match 'engine-v*' HEAD)
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "version=${tag#engine-v}" >> "$GITHUB_OUTPUT"
+
+      - name: Test and build
+        if: ${{ !inputs.dry-run }}
+        run: |
+          cargo test --locked
+          cargo build --release --locked
+
+      - name: Package
+        if: ${{ !inputs.dry-run }}
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          name="$TAG-x86_64-unknown-linux-gnu"
+          mkdir -p "dist/$name"
+          cp target/release/engine "dist/$name/"
+          tar -czf "dist/$name.tar.gz" -C dist "$name"
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !inputs.dry-run }}
+        with:
+          name: ${{ steps.version.outputs.tag }}
+          path: packages/engine/dist/*.tar.gz # `uses` steps ignore working-directory
+
+      - name: Push the release commit and tag to main
+        if: ${{ !inputs.dry-run }}
+        run: git push --follow-tags origin HEAD:main
+
+      - name: Create the GitHub Release
+        if: ${{ !inputs.dry-run }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          awk '/^## /{n++; if (n == 1) next} n == 1' CHANGELOG.md > notes.md
+          gh release create "$TAG" dist/*.tar.gz --title "engine ${TAG#engine-v}" --notes-file notes.md --verify-tag
